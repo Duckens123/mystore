@@ -2,6 +2,7 @@ import { React, useEffect, useState } from "react";
 import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
+import { Link } from "react-router-dom";
 
 const NewProducts = () => {
   const [data, setData] = useState(null);
@@ -14,7 +15,7 @@ const NewProducts = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch("https://fakestoreapi.com/products");
+      const response = await fetch("https://fakestoreapi.com/products?sort=desc");
       if (!response.ok) {
         throw new Error("Request failed");
       }
@@ -40,7 +41,7 @@ const NewProducts = () => {
         loop: true,
         margin: 10,
         nav: true,
-        autoplay: true,
+        
         responsive: {
             0: {
                 items: 1,
@@ -91,7 +92,8 @@ const NewProducts = () => {
         className="owl-theme"
         {...options}
       >
-        {data.map((item) => (
+        {data.slice(0,8).map((item) => (
+          <Link to={`/product/${item.id}`}>
           <div class="product">
             <div class="product-img">
               <img src={item.image} alt="" />
@@ -102,17 +104,17 @@ const NewProducts = () => {
             <div class="product-body">
               <p class="product-category">{item.category}</p>
               <h3 class="product-name">
-                <a href="#">{item.title}</a>
+                {item.title.slice(0,10)}
               </h3>
               <h4 class="product-price">
-                ${item.price} <del class="product-old-price">${item.price}</del>
+                ${item.price} <del class="product-old-price">${parseInt(item.price)+parseInt(item.price)*0.3}</del>
               </h4>
               <div class="product-rating">
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
-                <i class="fa fa-star-o"></i>
+                <i class="bi bi-star"></i>
               </div>
               <div class="product-btns">
                 <button class="add-to-wishlist">
@@ -129,12 +131,12 @@ const NewProducts = () => {
                 </button>
               </div>
             </div>
-            <div class="add-to-cart">
-              <button class="add-to-cart-btn">
-                <i class="fa fa-shopping-cart"></i> add to cart
-              </button>
-            </div>
+            <div className="text-center">
+								<button class="btn btn-danger mb-2"><i class="fa fa-shopping-cart"></i> add to cart</button>
+                </div>
           </div>
+          </Link>
+          
         ))}
       </OwlCarousel>
     </div>

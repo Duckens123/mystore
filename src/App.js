@@ -5,6 +5,8 @@ import Layout from './components/Layout';
 import Contact from './pages/Contact';
 import './assets/css/slick.css';
 import './assets/css/style.css';
+import './assets/js/main.js'
+import DisplayProduct from './components/DisplayProduct';
 
 function App() {
   return (
@@ -13,6 +15,7 @@ function App() {
       <Route path="/" element={<Layout/>} >
         <Route index element={<Home/>}/>
         <Route path='/contact' element={<Contact/>} />
+        <Route path='/product/:id' element={<DisplayProduct/>}/>
       </Route>
     </Routes>
     </BrowserRouter>
