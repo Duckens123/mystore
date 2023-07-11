@@ -104,15 +104,14 @@ const NewProducts = () => {
           </div>
         </div>
       </div>
-      <Slider
-        items={4}
-        className="col-md-11"
+     <div className="container">
+     <Slider        
         {...options}
       >
         {data.slice(0,8).map((item) => (
           <div>
           <Link to={`/product/${item.id}`}>
-          <div class="product">
+          <div class="product m-1">
             <div class="product-img">
               <img src={item.image} alt="" />
               <div class="product-label">
@@ -157,6 +156,7 @@ const NewProducts = () => {
           </div>
         ))}
       </Slider>
+     </div>
     </div>
   );
 };

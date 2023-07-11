@@ -4,7 +4,7 @@ import Banner from '../components/Banner';
 import Store from '../components/Store';
 const Home = () => {
   return (
-    <div>
+    <div className='container'>
       {/*<Banner/>*/}
       <NewProducts/>
       <Store/>
