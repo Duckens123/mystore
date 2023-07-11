@@ -4,22 +4,28 @@ const Store = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [StoreData, setStoreData] = useState(null)
+  const [StoreData, setStoreData] = useState()
 
   useEffect(() => {
     fetchData();
-    fetchDataStore();
   }, []); // empty dependency array to run the effect only once
 
+  
   const fetchData = async () => {
     try {
       const response = await fetch(
         "https://fakestoreapi.com/products/categories"
       );
+      const res = await fetch("https://fakestoreapi.com/products");
       if (!response.ok) {
         throw new Error("Request failed");
       }
+      if (!res.ok) {
+        throw new Error("Request failed");
+      }
       const jsonData = await response.json();
+      const jsonStore= await res.json();
+      setStoreData(jsonStore);
       setData(jsonData);
     } catch (error) {
       setError(error.message);
@@ -27,22 +33,7 @@ const Store = () => {
       setLoading(false);
     }
   };
-  const fetchDataStore = async () => {
-    try {
-      const response = await fetch(
-        "https://fakestoreapi.com/products"
-      );
-      if (!response.ok) {
-        throw new Error("Request failed");
-      }
-      const jsonData = await response.json();
-      setStoreData(jsonData);
-    } catch (error) {
-      setError(error.message);
-    } finally {
-      setLoading(false);
-    }
-  };
+
 
   if (loading) {
     return <div>Loading...</div>;

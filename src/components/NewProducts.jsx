@@ -1,7 +1,7 @@
 import { React, useEffect, useState } from "react";
-import OwlCarousel from "react-owl-carousel";
-import "owl.carousel/dist/assets/owl.carousel.css";
-import "owl.carousel/dist/assets/owl.theme.default.css";
+import Slider from 'react-slick'
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
 import { Link } from "react-router-dom";
 
 const NewProducts = () => {
@@ -38,22 +38,39 @@ const NewProducts = () => {
 
    
     const options= {
-        loop: true,
-        margin: 10,
-        nav: true,
-        
-        responsive: {
-            0: {
-                items: 1,
-            },
-            600: {
-                items: 3,
-            },
-            1000: {
-                items: 5,
-            },
+      dots: true,
+      infinite: false,
+      speed: 500,
+      slidesToShow: 4,
+      slidesToScroll: 4,
+      initialSlide: 0,
+      responsive: [
+        {
+          breakpoint: 1024,
+          settings: {
+            slidesToShow: 3,
+            slidesToScroll: 3,
+            infinite: true,
+            dots: true
+          }
         },
-    }
+        {
+          breakpoint: 600,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 2,
+            initialSlide: 2
+          }
+        },
+        {
+          breakpoint: 480,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1
+          }
+        }
+      ]
+    };
   
 
   return (
@@ -87,12 +104,13 @@ const NewProducts = () => {
           </div>
         </div>
       </div>
-      <OwlCarousel
+      <Slider
         items={4}
-        className="owl-theme"
+        className="col-md-11"
         {...options}
       >
         {data.slice(0,8).map((item) => (
+          <div>
           <Link to={`/product/${item.id}`}>
           <div class="product">
             <div class="product-img">
@@ -136,9 +154,9 @@ const NewProducts = () => {
                 </div>
           </div>
           </Link>
-          
+          </div>
         ))}
-      </OwlCarousel>
+      </Slider>
     </div>
   );
 };
