@@ -60,7 +60,13 @@ const DisplayProduct = () => {
     <div class="section">
       <div class="container">
         <div class="row">
-          <ProductDesc price={data.price} description={data.description} rating={data.rating.count} title={data.title} />
+          <ProductDesc
+            price={data.price}
+            description={data.description}
+            rating={data.rating.count}
+            title={data.title}
+            id={data.id}
+          />
 
           <div class="col-md-12">
             <div id="product-tab">
@@ -78,9 +84,9 @@ const DisplayProduct = () => {
 
               <div class="tab-content">
                 {Description ? (
-                    <p>{data.description}</p>
+                  <p>{data.description}</p>
                 ) : Details ? (
-                    <p>{data.description}</p>
+                  <p>{data.description}</p>
                 ) : (
                   <ProductReview review={data.rating.rate} />
                 )}

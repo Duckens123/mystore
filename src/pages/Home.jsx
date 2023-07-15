@@ -6,8 +6,8 @@ const Home = () => {
   return (
     <div className='container'>
       {/*<Banner/>*/}
-      <NewProducts/>
       <Store/>
+      <NewProducts/>
     </div>
   )
 }

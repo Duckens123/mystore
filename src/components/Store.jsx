@@ -1,16 +1,16 @@
 import { React, useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const Store = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [StoreData, setStoreData] = useState()
+  const [StoreData, setStoreData] = useState();
 
   useEffect(() => {
     fetchData();
   }, []); // empty dependency array to run the effect only once
 
-  
   const fetchData = async () => {
     try {
       const response = await fetch(
@@ -24,7 +24,7 @@ const Store = () => {
         throw new Error("Request failed");
       }
       const jsonData = await response.json();
-      const jsonStore= await res.json();
+      const jsonStore = await res.json();
       setStoreData(jsonStore);
       setData(jsonData);
     } catch (error) {
@@ -33,7 +33,6 @@ const Store = () => {
       setLoading(false);
     }
   };
-
 
   if (loading) {
     return <div>Loading...</div>;
@@ -97,55 +96,55 @@ const Store = () => {
             </div>
 
             <div class="row">
-              {
-                StoreData.map((item)=>(
-                    <div class="col-md-4 col-xs-6">
-                <div class="product">
-                  <div class="product-img">
-                    <img
-                    src={item.image}
-                      alt=""
-                    />
-                  </div>
-                  <div class="product-body">
-                    <p class="product-category">Category</p>
-                    <h3 class="product-name">
-                      <a href="#">product name goes here</a>
-                    </h3>
-                    <h4 class="product-price">
-                      $980.00 <del class="product-old-price">$990.00</del>
-                    </h4>
-                    <div class="product-rating">
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star-o"></i>
+              {StoreData.map((item) => (
+                <Link class="col-md-4 col-xs-6">
+                  <div class="product">
+                    <div class="product-img">
+                      <img src={item.image} alt="" />
+                      <div class="product-label">
+                        <span class="new">NEW</span>
+                      </div>
                     </div>
-                    <div class="product-btns">
-                      <button class="add-to-wishlist">
-                        <i class="fa fa-heart-o"></i>
-                        <span class="tooltipp">add to wishlist</span>
-                      </button>
-                      <button class="add-to-compare">
-                        <i class="fa fa-exchange"></i>
-                        <span class="tooltipp">add to compare</span>
-                      </button>
-                      <button class="quick-view">
-                        <i class="fa fa-eye"></i>
-                        <span class="tooltipp">quick view</span>
+                    <div class="product-body">
+                      <p class="product-category">{item.category}</p>
+                      <h3 class="product-name">{item.title.slice(0, 10)}</h3>
+                      <h4 class="product-price">
+                        ${item.price}{" "}
+                        <del class="product-old-price">
+                          ${parseInt(item.price) + parseInt(item.price) * 0.3}
+                        </del>
+                      </h4>
+                      <div class="product-rating">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="bi bi-star"></i>
+                      </div>
+                      <div class="product-btns">
+                        <button class="add-to-wishlist">
+                          <i class="fa fa-heart-o"></i>
+                          <span class="tooltipp">add to wishlist</span>
+                        </button>
+                        <button class="add-to-compare">
+                          <i class="fa fa-exchange"></i>
+                          <span class="tooltipp">add to compare</span>
+                        </button>
+                        <button class="quick-view">
+                          <i class="fa fa-eye"></i>
+                          <span class="tooltipp">quick view</span>
+                        </button>
+                      </div>
+                    </div>
+                    <div className="text-center">
+                      <button class="btn btn-danger mb-2">
+                        <i class="fa fa-shopping-cart"></i> add to cart
                       </button>
                     </div>
                   </div>
-                  <div class="add-to-cart">
-                    <button class="add-to-cart-btn">
-                      <i class="fa fa-shopping-cart"></i> add to cart
-                    </button>
-                  </div>
-                </div>
-              </div>
-                ))
-              }
+                </Link>
+                
+              ))}
             </div>
 
             <div class="store-filter clearfix">

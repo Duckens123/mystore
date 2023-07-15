@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import Nav from "./Nav";
 import { NavLink, Link } from "react-router-dom";
+import { CartContext } from "./CartContext";
 
 const Header = () => {
+  const {cart} = useContext(CartContext);
   return (
     <>
-      <header>
+      <header className="">
         <div id="top-header">
           <div className="container d-flex flex-row justify-content-between">
             <ul className="header-links pull-left">
@@ -39,117 +41,43 @@ const Header = () => {
             </ul>
           </div>
         </div>
-
-        <div id="header">
-          <div className="container">
-            <div className="row">
-              <div className="col-md-3">
-                <div className="header-logo">
-                  <a href="/" className="logo">
-                    <img src="./img/logo.png" alt="" />
-                  </a>
-                </div>
-              </div>
-
-              <div className="col-md-6">
-                <div className="header-search">
-                  <form>
-                    <select className="input-select me-0 mt-0">
-                      <option value="0">All Categories</option>
-                      <option value="1">Category 01</option>
-                      <option value="1">Category 02</option>
-                    </select>
-                    <input className="input" placeholder="Search here" />
-                    <button className="search-btn">Search</button>
-                  </form>
-                </div>
-              </div>
-
-              <div className="col-md-3 clearfix">
-                <div className="header-ctn">
-                  <div>
-                    <a href="/">
-                      <i className="bi bi-bag-heart"></i>
-                      <span>Your Wishlist</span>
-                      <div className="qty">2</div>
-                    </a>
-                  </div>
-
-                  <div className="dropdown">
-                    <a
-                      className="dropdown-toggle"
-                      data-toggle="dropdown"
-                      aria-expanded="true"
-                    >
-                      <i className="bi bi-cart"></i>
-                      <span>Your Cart</span>
-                      <div className="qty">3</div>
-                    </a>
-                    <div className="cart-dropdown">
-                      <div className="cart-list">
-                        <div className="product-widget">
-                          <div className="product-img">
-                            <img src="./img/product01.png" alt="" />
-                          </div>
-                          <div className="product-body">
-                            <h3 className="product-name">
-                              <a href="/">product name goes here</a>
-                            </h3>
-                            <h4 className="product-price">
-                              <span className="qty">1x</span>$980.00
-                            </h4>
-                          </div>
-                          <button className="delete">
-                            <i className="fa fa-close"></i>
-                          </button>
-                        </div>
-
-                        <div className="product-widget">
-                          <div className="product-img">
-                            <img src="./img/product02.png" alt="" />
-                          </div>
-                          <div className="product-body">
-                            <h3 className="product-name">
-                              <a href="/">product name goes here</a>
-                            </h3>
-                            <h4 className="product-price">
-                              <span className="qty">3x</span>$980.00
-                            </h4>
-                          </div>
-                          <button className="delete">
-                            <i className="fa fa-close"></i>
-                          </button>
-                        </div>
-                      </div>
-                      <div className="cart-summary">
-                        <small>3 Item(s) selected</small>
-                        <h5>SUBTOTAL: $2940.00</h5>
-                      </div>
-                      <div className="cart-btns">
-                        <a href="/">View Cart</a>
-                        <a href="/">
-                          Checkout <i className="fa fa-arrow-circle-right"></i>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-
-                  <button
-                    class="navbar-toggler text-light"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#navbar"
-                    aria-controls="navbarSupportedContent"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation"
-                  >
-                    <i class="bi bi-list fw-bolder"></i>
-                  </button>
-                </div>
-              </div>
-            </div>
+        <nav class="navbar bg-dark">
+          <div class="container-fluid">
+            <a class="navbar-brand text-light">LOGO</a>
+            <form class="d-flex" role="search">
+              <input
+                class="form-control me-2"
+                type="search"
+                placeholder="Search"
+                aria-label="Search"
+              />
+              <button class="btn btn-outline-danger" type="submit">
+                Search
+              </button>
+            </form>
+            <Link
+              type="button"
+              to="/mycart"
+              class="btn btn-dark text-light position-relative me-4 border border-danger"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-cart2"
+                viewBox="0 0 16 16"
+              >
+                <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l1.25 5h8.22l1.25-5H3.14zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z" />
+              </svg>
+              <br />
+              Your cart
+              <span class="position-absolute start-100 translate-middle badge rounded-pill bg-danger">
+                {cart.length}
+              </span>
+            </Link>
           </div>
-        </div>
+        </nav>
       </header>
       <Nav />
     </>
